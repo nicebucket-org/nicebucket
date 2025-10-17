@@ -73,6 +73,10 @@ Tauri was perfect for our needs - it's lightweight, secure, and lets us use our 
 
 Found a bug or want to add a feature? We'd love your help! Check out [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
+## Roadmap
+
+Want to see what's coming next? Check out our [ROADMAP.md](ROADMAP.md) to see planned features and improvements.
+
 ## License
 
 We share our code freely and want to keep it that way. That's why nicebucket is licensed under GPLv3 - see [LICENSE.md](LICENSE.md) for details.

@@ -26,3 +26,7 @@ We don't care if you use AI tools - we can't tell anyway. Just be ready to expla
 4. Be ready to discuss your changes
 
 We appreciate contributions but reserve the right to decline PRs that don't fit our current priorities.
+
+## What's Next?
+
+Interested in contributing but not sure where to start? Check out our [ROADMAP.md](ROADMAP.md) to see what features we're planning to work on next.
