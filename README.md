@@ -63,8 +63,8 @@ npm run dev
 - **AWS Integration**: Rust AWS SDK
 - **UI Components**: shadcn/ui
 
-We chose this stack because it lets us use our TypeScript knowledge while not having to use Electron. 
-Just kidding, we did not have prior experience so we just decided on Tauri because it sounded promising. 
+We chose this stack because it lets us use our TypeScript knowledge while not having to use Electron.
+Just kidding, we did not have prior experience so we just decided on Tauri because it sounded promising.
 So far we're quite happy with the decision.
 
 ## Contributing
