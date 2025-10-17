@@ -29,4 +29,4 @@ We appreciate contributions but reserve the right to decline PRs that don't fit 
 
 ## What's Next?
 
-Interested in contributing but not sure where to start? Check out our [ROADMAP.md](ROADMAP.md) to see what features we're planning to work on next.
+Interested in contributing but not sure where to start? Check out our [ROADMAP.md](ROADMAP.md) to see what we've got planned.

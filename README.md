@@ -4,15 +4,12 @@
 
 # nicebucket
 
-An S3 GUI that doesn't suck.
-A simple, fast S3 bucket manager built with Tauri.
-We created nicebucket to make managing AWS S3 files as easy as browsing local folders on your desktop.
+An S3 GUI that doesn't suck. A simple, fast S3 bucket manager built with Tauri.
 
 ## Why we built nicebucket
 
-We got tired of switching between the AWS console and CLI tools just to manage files in S3.
-Sometimes you just want a simple file browser that works like your operating system's file manager, but for S3 buckets.
-So we built one.
+We got tired of using the AWS console and CLI to manage files in S3.
+Sometimes you want a simple file browser that just works. So we built one.
 
 ## Features
 
@@ -50,7 +47,7 @@ Want to contribute or run nicebucket locally? Here's what you need:
 
 ### Setup
 
-Setup is quite simple: clone the repoistory, install dependencies and run the app:
+Setup is quite simple: clone the repository, install dependencies and run the app:
 
 ```bash
 git clone https://github.com/your-username/nicebucket.git
@@ -66,8 +63,9 @@ npm run dev
 - **AWS Integration**: Rust AWS SDK
 - **UI Components**: shadcn/ui
 
-We chose this stack because it gives us the performance of a native app with the flexibility of web technologies.
-Tauri was perfect for our needs - it's lightweight, secure, and lets us use our existing TypeScript knowledge.
+We chose this stack because it lets us use our TypeScript knowledge while not having to use Electron. 
+Just kidding, we did not have prior experience so we just decided on Tauri because it sounded promising. 
+So far we're quite happy with the decision.
 
 ## Contributing
 
@@ -75,7 +73,7 @@ Found a bug or want to add a feature? We'd love your help! Check out [CONTRIBUTI
 
 ## Roadmap
 
-Want to see what's coming next? Check out our [ROADMAP.md](ROADMAP.md) to see planned features and improvements.
+Want to see what's coming next? Check out our [ROADMAP.md](ROADMAP.md) to see what's up next.
 
 ## License
 
