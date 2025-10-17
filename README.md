@@ -1,4 +1,4 @@
-![Logo of nicebucket](./assets/logo.png)
+![Logo of nicebucket](./assets/logo.jpg)
 
 # nicebucket
 
