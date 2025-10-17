@@ -1,0 +1,178 @@
+# See https://github.com/tauri-apps/tauri-action for more information
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-version-tag:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.versioning.outputs.version }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install frontend dependencies
+        run: npm install
+
+      - name: Run lint checks
+        run: npm run lint
+
+      - name: Run formatting checks
+        run: npm run format:check
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Install Tauri dependencies (Ubuntu)
+        run: |
+          sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libglib2.0-dev
+
+      - name: Set up Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          profile: minimal
+
+      # We use node commands here instead of sed/awk/etc., since those do not work on Windows by default.
+      - name: Create version tag
+        id: versioning
+        run: |
+          if [ "$GITHUB_REF_NAME" != "main" ]; then
+            echo "Error: You must be on the main branch to create a version tag. Current branch: $GITHUB_REF_NAME"
+            exit 1
+          fi
+
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Actions"
+
+          echo "Creating version tag from main branch..."
+          npx standard-version
+
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "New version: $NEW_VERSION"
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+          # Update tauri.conf.json version
+          sed -i 's/"version": ".*"/"version": "'$NEW_VERSION'"/' src-tauri/tauri.conf.json
+
+          # Update Cargo.toml version
+          sed -i '/^\[package\]$/,/^\[/ s/^version = ".*"/version = "'$NEW_VERSION'"/' src-tauri/Cargo.toml
+
+          # Update Cargo.lock to reflect the version change
+          sed -i '/^name = "nicebucket"$/,/^$/s/^version = ".*"/version = "'$NEW_VERSION'"/' src-tauri/Cargo.lock
+
+          git add src-tauri/tauri.conf.json src-tauri/Cargo.toml src-tauri/Cargo.lock
+          git commit --amend --no-edit
+
+          # Pull any changes that might have been pushed during release creation
+          git pull --rebase origin main
+          git push --follow-tags origin HEAD
+
+  publish-tauri:
+    needs: create-version-tag
+    env:
+      APP_VERSION: ${{ needs.create-version-tag.outputs.version }}
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: "macos-latest"
+            args: "--target universal-apple-darwin"
+          # TODO: comment back in once we have code signing working on mac
+          # - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
+          #   args: ""
+          # - platform: "windows-latest"
+          #   args: ""
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history to get the newly created tag
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Clean and install frontend dependencies (Windows)
+        if: matrix.platform == 'windows-latest'
+        run: |
+          if (Test-Path "node_modules") { Remove-Item -Recurse -Force "node_modules" }
+          if (Test-Path "package-lock.json") { Remove-Item -Force "package-lock.json" }
+          npm install
+        shell: pwsh
+
+      - name: Clean and install frontend dependencies (Unix)
+        if: matrix.platform != 'windows-latest'
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
+
+      # see https://github.com/tauri-apps/tauri-action/blob/dev/examples/publish-to-auto-release-universal-macos-app-with-signing-certificate.yml
+      - name: Import Apple Developer Certificate
+        if: matrix.platform == 'macos-latest'
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE_BASE64 }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          echo $APPLE_CERTIFICATE | base64 --decode > certificate.p12
+          security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security set-keychain-settings -t 3600 -u build.keychain
+          security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
+          security find-identity -v -p codesigning build.keychain
+
+      - name: Verify certificate
+        if: matrix.platform == 'macos-latest'
+        run: |
+          CERT_INFO=$(security find-identity -v -p codesigning build.keychain | grep "Developer ID Application")
+          CERT_ID=$(echo "$CERT_INFO" | awk -F'"' '{print $2}')
+          echo "CERT_ID=$CERT_ID" >> $GITHUB_ENV
+          echo "Certificate imported."
+
+      - uses: tauri-apps/tauri-action@v0
+        # The notarization for MacOS often takes very long, let's monitor this
+        timeout-minutes: 360
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE_BASE64 }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ env.CERT_ID }}
+        with:
+          tagName: v${{ env.APP_VERSION }}
+          releaseName: "v${{ env.APP_VERSION }}"
+          releaseBody: "See the assets to download this version and install."
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}
