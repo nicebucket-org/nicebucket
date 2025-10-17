@@ -12,7 +12,18 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - name: Generate GitHub App Token
+        id: get_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.RELEASE_BOT_APP_ID }}
+          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.get_token.outputs.token }}
 
       - name: Setup node
         uses: actions/setup-node@v4
@@ -51,8 +62,8 @@ jobs:
             exit 1
           fi
 
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Actions"
+          git config --global user.name "nicebucket-release-bot[bot]"
+          git config --global user.email "2131833+nicebucket-release-bot[bot]@users.noreply.github.com"
 
           echo "Creating version tag from main branch..."
           npx standard-version
