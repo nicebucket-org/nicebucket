@@ -1,4 +1,6 @@
-![Logo of nicebucket](./assets/logo.jpg)
+<div align="center">
+  <img src="./assets/logo.jpg" alt="Logo of nicebucket" width="50%">
+</div>
 
 # nicebucket
 
