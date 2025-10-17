@@ -1,6 +1,6 @@
 # Roadmap
 
-Here's what we're planning to work on next. These are our current priorities but things change as we learn more about what users actually need.
+Here's what we're planning to work on next. These are in no particular order and may be changed at any time.
 
 * [ ] Drag and drop file uploads and organization
 * [ ] Distribution via package managers (Homebrew, AUR, etc.)
