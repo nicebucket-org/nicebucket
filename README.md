@@ -1,3 +1,5 @@
+![Logo of nicebucket](assets/logo.png)
+
 # nicebucket
 
 An S3 GUI that doesn't suck.
