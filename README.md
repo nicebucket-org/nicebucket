@@ -37,6 +37,16 @@ Easily move files between folders.
 
 Download from the [Releases](https://github.com/nicebucket-org/nicebucket/releases) section.
 
+#### Mac OS
+
+We're currently working on adding code signing to our CI/CD. Unfortunately, Apple makes this process very cummbersome.
+Until then, you need to run the following command to allow nicebucket to be run on ARM Macs:
+
+```
+# Modify the path to the executable if required
+xattr -d com.apple.quarantine /Applications/nicebucket.app
+```
+
 ## Getting Started
 
 1. Launch nicebucket
