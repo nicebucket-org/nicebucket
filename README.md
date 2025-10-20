@@ -21,6 +21,12 @@ Sometimes you want a simple file browser that just works. So we built one.
 - **Preview** files without downloading
 - **Secure credential management** using your system's keyring
 
+## Demo
+
+<div align="center">
+  <video src="./assets/demo.mov" alt="Demo of nicebucket" width="50%">
+</div>
+
 ## Installation
 
 ### Download
