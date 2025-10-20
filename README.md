@@ -39,8 +39,8 @@ Download from the [Releases](https://github.com/nicebucket-org/nicebucket/releas
 
 #### Mac OS
 
-We're currently working on adding code signing to our CI/CD. Unfortunately, Apple makes this process very cummbersome.
-Until then, you need to run the following command to allow nicebucket to be run on ARM Macs:
+We're currently working on adding code signing to our CI/CD. Unfortunately, Apple makes this process very cumbersome.
+Until then, you need to run the following command in order to use nicebucket on Mac:
 
 ```
 # Modify the path to the executable if required
