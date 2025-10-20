@@ -24,8 +24,7 @@ Sometimes you want a simple file browser that just works. So we built one.
 ## Demo
 
 <div align="center">
-  <video src="
-https://github.com/user-attachments/assets/6a7b4f6e-9e80-4226-b71e-3d48bbf891f9" alt="Demo of nicebucket" width="50%" controls>
+  <video src="https://github.com/user-attachments/assets/6a7b4f6e-9e80-4226-b71e-3d48bbf891f9" alt="Demo of nicebucket" width="100%" controls>
 </div>
 
 ## Installation
