@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.4 (2025-10-20)
+
+
+### Bug Fixes
+
+* demo video URL ([a46ec05](https://github.com/nicebucket-org/nicebucket/commit/a46ec0503b4c41a937987996055e402422d383b5))
+
 ### 0.0.3 (2025-10-20)
 
 ### [0.0.2](https://github.com/nicebucket-org/nicebucket/compare/6220861...a6cee90) (2025-10-17)
