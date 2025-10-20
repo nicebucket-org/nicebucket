@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.3 (2025-10-20)
+
 ### [0.0.2](https://github.com/nicebucket-org/nicebucket/compare/6220861...a6cee90) (2025-10-17)
 
 ### Bug Fixes
