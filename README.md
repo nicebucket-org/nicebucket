@@ -23,9 +23,13 @@ Sometimes you want a simple file browser that just works. So we built one.
 
 ## Demo
 
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/6a7b4f6e-9e80-4226-b71e-3d48bbf891f9" alt="Demo of nicebucket" width="100%" controls>
-</div>
+Upload files to the root of a bucket or withing a folder and preview them within seconds:
+
+<video src="https://github.com/user-attachments/assets/6a7b4f6e-9e80-4226-b71e-3d48bbf891f9" alt="Demo of nicebucket" width="100%" controls>
+
+Easily move files between folders:
+  
+<video src="https://github.com/user-attachments/assets/b6c7a7ea-3700-491d-baf4-ea5e3dd3374a" alt="Demo of nicebucket" width="100%" controls>
 
 ## Installation
 
