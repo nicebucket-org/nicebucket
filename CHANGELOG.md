@@ -4,10 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 0.0.4 (2025-10-20)
 
-
 ### Bug Fixes
 
-* demo video URL ([a46ec05](https://github.com/nicebucket-org/nicebucket/commit/a46ec0503b4c41a937987996055e402422d383b5))
+- demo video URL ([a46ec05](https://github.com/nicebucket-org/nicebucket/commit/a46ec0503b4c41a937987996055e402422d383b5))
 
 ### 0.0.3 (2025-10-20)
 
