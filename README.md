@@ -5,6 +5,7 @@
 # nicebucket
 
 An S3 GUI that doesn't suck. A simple, fast S3 bucket manager built with Tauri.
+An S3 GUI that doesn't suck. A simple, fast S3 bucket manager built with Tauri.
 
 ## Why we built nicebucket
 
