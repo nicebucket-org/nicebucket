@@ -4,8 +4,7 @@
   "version": "0.0.3",
   "type": "module",
   "scripts": {
-    "dev": "tauri dev",
-    "dev:ui": "vite",
+    "dev": "vite",
     "build": "vite build",
     "release": "standard-version && git push --follow-tags origin HEAD",
     "build:prod": "NO_STRIP=1 npm run tauri build",

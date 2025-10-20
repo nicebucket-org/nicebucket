@@ -31,7 +31,7 @@ jobs:
           node-version: lts/*
 
       - name: Install frontend dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run lint checks
         run: npm run lint
