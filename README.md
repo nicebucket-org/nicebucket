@@ -23,15 +23,29 @@ Sometimes you want a simple file browser that just works. So we built one.
 
 ## Demo
 
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/6a7b4f6e-9e80-4226-b71e-3d48bbf891f9" alt="Demo of nicebucket" width="100%" controls>
-</div>
+Upload files to the root of a bucket or withing a folder and preview them within seconds.
+
+<video src="https://github.com/user-attachments/assets/6a7b4f6e-9e80-4226-b71e-3d48bbf891f9" alt="Demo of nicebucket" width="100%" controls></video>
+
+Easily move files between folders.
+
+<video src="https://github.com/user-attachments/assets/b6c7a7ea-3700-491d-baf4-ea5e3dd3374a" alt="Demo of nicebucket" width="100%" controls></video>
 
 ## Installation
 
 ### Download
 
 Download from the [Releases](https://github.com/nicebucket-org/nicebucket/releases) section.
+
+#### Mac OS
+
+We're currently working on adding code signing to our CI/CD. Unfortunately, Apple makes this process very cumbersome.
+Until then, you need to run the following command in order to use nicebucket on Mac:
+
+```
+# Modify the path to the executable if required
+xattr -d com.apple.quarantine /Applications/nicebucket.app
+```
 
 ## Getting Started
 
