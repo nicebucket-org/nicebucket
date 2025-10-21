@@ -73,22 +73,26 @@ jobs:
           echo "New version: $NEW_VERSION"
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
-          # Update tauri.conf.json version
-          sed -i 's/"version": ".*"/"version": "'$NEW_VERSION'"/' src-tauri/tauri.conf.json
+          # Update tauri.conf.json version (looking for "version" field near top of file)
+          sed -i '0,/^  "version":/{s/^  "version": ".*"/  "version": "'$NEW_VERSION'",/;}' src-tauri/tauri.conf.json
 
-          # Update Cargo.toml version
-          sed -i '/^\[package\]$/,/^\[/ s/^version = ".*"/version = "'$NEW_VERSION'"/' src-tauri/Cargo.toml
+          # Update Cargo.toml version (only in the [package] section)
+          sed -i '/^\[package\]$/,/^\[.*\]$/{s/^version = ".*"/version = "'$NEW_VERSION'"/;}' src-tauri/Cargo.toml
 
-          # Update Cargo.lock to reflect the version change
-          sed -i '/^name = "nicebucket"$/,/^$/s/^version = ".*"/version = "'$NEW_VERSION'"/' src-tauri/Cargo.lock
+          # Update Cargo.lock to reflect the version change (only for nicebucket package)
+          sed -i '/^name = "nicebucket"$/,/^$/{s/^version = ".*"/version = "'$NEW_VERSION'"/;}' src-tauri/Cargo.lock
 
           git add src-tauri/tauri.conf.json src-tauri/Cargo.toml src-tauri/Cargo.lock
           git commit --amend --no-edit
 
+          # Update the tag to point to the amended commit
+          git tag -d v$NEW_VERSION
+          git tag v$NEW_VERSION
+
           # Pull any changes that might have been pushed during release creation
           git pull --rebase origin main
           git push origin HEAD
-          git push origin v$NEW_VERSION
+          git push origin v$NEW_VERSION --force
 
   publish-tauri:
     needs: create-version-tag
