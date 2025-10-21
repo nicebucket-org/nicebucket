@@ -34,6 +34,7 @@ interface ObjectListItem {
   size: number | null;
   lastModifiedAt: string | null;
   content?: ReactNode;
+  url: string;
   onClick: () => void;
 }
 
@@ -100,7 +101,7 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
           );
         })
         .map((file) => {
-          const { key, size, last_modified, is_folder } = file;
+          const { key, size, last_modified, is_folder, url } = file;
 
           // Hide slash suffix for folders
           const labelWithPrefix = is_folder
@@ -128,6 +129,7 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
             type: is_folder ? "folder" : "file",
             size,
             lastModifiedAt: last_modified,
+            url,
             onClick,
           };
         });
@@ -353,27 +355,6 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
     },
   });
 
-  const { mutate: copyObjectUrl } = useMutation({
-    mutationFn: async (key: string) => {
-      const url = await commands.getObjectUrl({
-        common: {
-          connection,
-          bucket_region: bucket.region,
-        },
-        bucket_name: bucket.name,
-        key,
-      });
-      return url;
-    },
-    onSuccess: (url) => {
-      copyToClipboard(url);
-    },
-    onError: (error) => {
-      console.error(error);
-      toast.error("Failed to get object URL.");
-    },
-  });
-
   if (isPending) {
     return <FileTreeSkeleton />;
   }
@@ -479,8 +460,8 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
                           <DropdownMenuItem
                             onClick={(e) => {
                               e.stopPropagation();
-
-                              copyObjectUrl(item.key);
+                              copyToClipboard(item.url);
+                              toast.success("URL copied to clipboard");
                             }}
                           >
                             Copy URL

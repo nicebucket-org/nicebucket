@@ -158,6 +158,7 @@ impl S3Service {
         bucket_name: &str,
         prefix: Option<&str>,
         recursive: bool,
+        region: Option<String>,
     ) -> Result<Vec<ObjectInfo>, Error> {
         let mut all_objects = Vec::new();
         let mut continuation_token: Option<String> = None;
@@ -181,12 +182,14 @@ impl S3Service {
 
             for prefix in resp.common_prefixes() {
                 if let Some(prefix_str) = prefix.prefix() {
+                    let url = self.get_object_url(bucket_name, prefix_str, region.clone());
                     all_objects.push(ObjectInfo {
                         key: prefix_str.to_string(),
                         size: None,
                         last_modified: None,
                         storage_class: None,
                         is_folder: true,
+                        url,
                     });
                 }
             }
@@ -194,12 +197,14 @@ impl S3Service {
             for object in resp.contents() {
                 if let Some(key) = object.key() {
                     if !key.ends_with('/') {
+                        let url = self.get_object_url(bucket_name, key, region.clone());
                         all_objects.push(ObjectInfo {
                             key: key.to_string(),
                             size: object.size(),
                             last_modified: object.last_modified().map(|date| date.to_string()),
                             storage_class: object.storage_class().map(|sc| sc.as_str().to_string()),
                             is_folder: false,
+                            url,
                         });
                     }
                 }
@@ -380,8 +385,9 @@ impl S3Service {
         &self,
         bucket_name: &str,
         prefix: &str,
+        region: Option<String>,
     ) -> Result<Vec<u8>, Box<dyn std::error::Error + Send + Sync>> {
-        let objects = self.list_objects(bucket_name, Some(prefix), true).await?;
+        let objects = self.list_objects(bucket_name, Some(prefix), true, region).await?;
 
         let file_keys: Vec<String> = objects
             .into_iter()
@@ -431,6 +437,7 @@ impl S3Service {
         &self,
         bucket_name: &str,
         folder_prefix: &str,
+        region: Option<String>,
     ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         // Safety check: prevent deletion of root or invalid paths
         if folder_prefix.is_empty() || folder_prefix == "/" {
@@ -467,7 +474,7 @@ impl S3Service {
             }
 
             let objects = self
-                .list_objects(bucket_name, Some(&current_prefix), false)
+                .list_objects(bucket_name, Some(&current_prefix), false, region.clone())
                 .await?;
 
             for obj in objects {

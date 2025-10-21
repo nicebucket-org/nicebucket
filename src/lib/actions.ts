@@ -7,7 +7,3 @@ export function copyToClipboard(text: string) {
 export function copyBucketUrl(bucket: BucketInfo) {
   copyToClipboard(bucket.endpoint_url);
 }
-
-export function copyObjectUrl(url: string) {
-  copyToClipboard(url);
-}

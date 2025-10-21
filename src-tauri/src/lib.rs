@@ -18,7 +18,6 @@ pub fn run() {
         s3::upload_objects,
         s3::create_folder,
         s3::move_objects,
-        s3::get_object_url,
         keyring::save_connection,
         keyring::load_saved_connections,
         keyring::delete_saved_connection,

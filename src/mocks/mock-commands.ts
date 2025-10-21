@@ -99,6 +99,7 @@ export const mockCommands: CommandMap = {
         last_modified: null,
         storage_class: null,
         is_folder: true,
+        url: "https://mock-bucket.s3.amazonaws.com/documents/",
       },
       {
         key: "images/",
@@ -106,6 +107,7 @@ export const mockCommands: CommandMap = {
         last_modified: null,
         storage_class: null,
         is_folder: true,
+        url: "https://mock-bucket.s3.amazonaws.com/images/",
       },
       {
         key: "README.txt",
@@ -113,6 +115,7 @@ export const mockCommands: CommandMap = {
         last_modified: "2024-08-27T12:00:00Z",
         storage_class: "STANDARD",
         is_folder: false,
+        url: "https://mock-bucket.s3.amazonaws.com/README.txt",
       },
       {
         key: "test.jpg",
@@ -120,6 +123,7 @@ export const mockCommands: CommandMap = {
         last_modified: "2025-06-27T12:00:00Z",
         storage_class: "STANDARD_IA",
         is_folder: false,
+        url: "https://mock-bucket.s3.amazonaws.com/test.jpg",
       },
       {
         key: "form.pdf",
@@ -127,6 +131,7 @@ export const mockCommands: CommandMap = {
         last_modified: "2025-08-27T12:00:00Z",
         storage_class: "GLACIER",
         is_folder: false,
+        url: "https://mock-bucket.s3.amazonaws.com/form.pdf",
       },
     ]);
   },
