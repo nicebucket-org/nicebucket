@@ -13,9 +13,9 @@ Sometimes you want a simple file browser that just works. So we built one.
 
 ## Features
 
-- **Browse S3 buckets** like local folders
-- **Upload** files
-- **Download** files individually or in bulk
+- **Browse any S3-compatible bucket** (S3, R2, etc.) like local folders
+- **Upload** files individually
+- **Download** files individually
 - **Create and delete** folders
 - **Move** files between folders
 - **Preview** files without downloading
