@@ -109,7 +109,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetch all history to get the newly created tag
+          ref: v${{ needs.create-version-tag.outputs.version }}
+          fetch-depth: 0
 
       - name: Setup node
         uses: actions/setup-node@v4
