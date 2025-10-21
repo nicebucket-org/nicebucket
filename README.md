@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./assets/logo.jpg" alt="Logo of nicebucket" width="33%">
+  <img src="./assets/logo.png" alt="Logo of nicebucket" width="33%">
   <p align="center">A fast, private, open-source S3 GUI built with Tauri.</p>
 </div>
 
