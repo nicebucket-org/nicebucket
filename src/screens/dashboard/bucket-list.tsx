@@ -8,7 +8,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { copyBucketUrl } from "@/lib/actions";
+import { copyToClipboard } from "@/lib/actions";
 import { useCommands } from "@/lib/use-commands";
 import { skipToken, useQuery } from "@tanstack/react-query";
 import { EllipsisVertical, Folder } from "lucide-react";
@@ -87,12 +87,12 @@ export function BucketList() {
                       onClick={(e) => {
                         e.stopPropagation();
 
-                        copyBucketUrl(bucket);
+                        copyToClipboard(bucket.endpoint_url);
 
                         toast.success("Bucket URL copied successfully.");
                       }}
                     >
-                      Copy Bucket URL
+                      Copy Bucket Url
                       <DropdownMenuShortcut>c</DropdownMenuShortcut>
                     </DropdownMenuItem>
                   </DropdownMenuContent>

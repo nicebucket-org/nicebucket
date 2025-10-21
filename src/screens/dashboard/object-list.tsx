@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { copyToClipboard } from "@/lib/actions";
 import { useCommands } from "@/lib/use-commands";
 import { formatFileSize, relativeTimeSince } from "@/lib/utils";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -33,6 +34,7 @@ interface ObjectListItem {
   size: number | null;
   lastModifiedAt: string | null;
   content?: ReactNode;
+  url: string;
   onClick: () => void;
 }
 
@@ -99,7 +101,7 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
           );
         })
         .map((file) => {
-          const { key, size, last_modified, is_folder } = file;
+          const { key, size, last_modified, is_folder, url } = file;
 
           // Hide slash suffix for folders
           const labelWithPrefix = is_folder
@@ -127,6 +129,7 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
             type: is_folder ? "folder" : "file",
             size,
             lastModifiedAt: last_modified,
+            url,
             onClick,
           };
         });
@@ -454,6 +457,16 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
 
                       {item.type === "file" && (
                         <>
+                          <DropdownMenuItem
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              copyToClipboard(item.url);
+                              toast.success("URL copied to clipboard");
+                            }}
+                          >
+                            Copy Object Url
+                          </DropdownMenuItem>
+
                           <DropdownMenuItem
                             onClick={(e) => {
                               e.stopPropagation();

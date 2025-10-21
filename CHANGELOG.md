@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 0.0.5 (2025-10-20)
 
+### Bug Fixes
+
+- grammar ([02f2283](https://github.com/nicebucket-org/nicebucket/commit/02f22835570a95d19c998543e19552c64374ecff))
+- README ([80023a6](https://github.com/nicebucket-org/nicebucket/commit/80023a6fb6df95d01b18e1d9ebbfb23b7d62c949))
+
+### Documentation
+
+- add move file demo ([934349e](https://github.com/nicebucket-org/nicebucket/commit/934349e85e9f34d8f3acb4e31dc3f0397f6dce4c))
+
 ### 0.0.4 (2025-10-20)
 
 ### Bug Fixes

@@ -103,6 +103,7 @@ pub struct ObjectInfo {
     pub last_modified: Option<String>,
     pub storage_class: Option<String>,
     pub is_folder: bool,
+    pub url: String,
 }
 
 #[derive(Serialize, Deserialize, Type)]
@@ -251,7 +252,12 @@ pub async fn list_objects(
     let service = create_s3_service(&opts.common, state).await?;
 
     service
-        .list_objects(&opts.bucket_name, opts.prefix.as_deref(), false)
+        .list_objects(
+            &opts.bucket_name,
+            opts.prefix.as_deref(),
+            false,
+            opts.common.bucket_region,
+        )
         .await
         .map_err(|e| format!("Failed to list objects: {}", e))
 }
@@ -335,7 +341,7 @@ pub async fn download_folder(
     let service = create_s3_service(&opts.common, state).await?;
 
     service
-        .download_folder(&opts.bucket_name, &opts.prefix)
+        .download_folder(&opts.bucket_name, &opts.prefix, opts.common.bucket_region)
         .await
         .map_err(|e| format!("Failed to download folder: {}", e))
 }
@@ -399,7 +405,7 @@ pub async fn delete_folder(
     let service = create_s3_service(&opts.common, state).await?;
 
     service
-        .delete_folder(&opts.bucket_name, &opts.prefix)
+        .delete_folder(&opts.bucket_name, &opts.prefix, opts.common.bucket_region)
         .await
         .map_err(|e| format!("Failed to delete folder: {}", e))
 }
