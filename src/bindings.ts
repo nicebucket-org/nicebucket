@@ -158,7 +158,6 @@ export type DeleteObjectsOptions = { common: CommonOperationOptions; bucket_name
 export type DownloadFolderOptions = { common: CommonOperationOptions; bucket_name: string; prefix: string }
 export type DownloadObjectOptions = { common: CommonOperationOptions; bucket_name: string; key: string }
 export type DownloadObjectsOptions = { common: CommonOperationOptions; bucket_name: string; keys: string[] }
-
 export type ListObjectsOptions = { common: CommonOperationOptions; bucket_name: string; prefix: string | null }
 export type MoveObjectsOptions = { common: CommonOperationOptions; bucket_name: string; keys: string[]; destination_prefix: string }
 export type ObjectInfo = { key: string; size: number | null; last_modified: string | null; storage_class: string | null; is_folder: boolean; url: string }
