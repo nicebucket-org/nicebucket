@@ -3,8 +3,6 @@
   <p align="center">A fast, private, open-source S3 GUI built with Tauri.</p>
 </div>
 
-<br />
-
 # nicebucket
 
 We got tired of using the AWS console and CLI to manage files in S3.
