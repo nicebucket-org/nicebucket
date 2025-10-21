@@ -146,7 +146,6 @@ export function useCommands(): { commands: CommandMap } {
     createFolder,
     moveObjects,
     getObjectUrl,
-
     saveConnection,
     loadSavedConnections,
     deleteSavedConnection,
