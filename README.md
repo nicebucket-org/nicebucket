@@ -1,5 +1,5 @@
-<div align="center">
-  <img src="./assets/logo.jpg" alt="Logo of nicebucket" width="50%">
+<div align="center" style="border-radius: 0.5rem; overflow: hidden;">
+  <img src="./assets/logo.jpg" alt="Logo of nicebucket" width="33%">
 </div>
 
 # nicebucket
