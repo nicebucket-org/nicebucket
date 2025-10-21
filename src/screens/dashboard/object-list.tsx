@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { copyObjectUrl, copyToClipboard } from "@/lib/actions";
+import { copyToClipboard } from "@/lib/actions";
 import { useCommands } from "@/lib/use-commands";
 import { formatFileSize, relativeTimeSince } from "@/lib/utils";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -353,7 +353,7 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
     },
   });
 
-  const { mutate: getObjectUrl } = useMutation({
+  const { mutate: copyObjectUrl } = useMutation({
     mutationFn: async (key: string) => {
       const url = await commands.getObjectUrl({
         common: {
@@ -456,7 +456,7 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
                               e.stopPropagation();
 
                               try {
-                                const url = await getObjectUrl(item.key);
+                                const url = await copyObjectUrl(item.key);
                                 copyObjectUrl(url);
                                 toast.success("URL copied to clipboard!");
                               } catch (error) {
@@ -487,7 +487,7 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
                             onClick={(e) => {
                               e.stopPropagation();
 
-                              getObjectUrl(item.key);
+                              copyObjectUrl(item.key);
                             }}
                           >
                             Copy URL
