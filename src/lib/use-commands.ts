@@ -7,6 +7,7 @@ import {
   DownloadFolderOptions,
   DownloadObjectOptions,
   DownloadObjectsOptions,
+  GetObjectUrlOptions,
   ListObjectsOptions,
   MoveObjectsOptions,
   Result,
@@ -102,6 +103,11 @@ export function useCommands(): { commands: CommandMap } {
     return unwrap(result);
   }
 
+  async function getObjectUrl(config: GetObjectUrlOptions) {
+    const result = tauriCommands.getObjectUrl(config);
+    return unwrap(result);
+  }
+
   async function saveConnection(config: ConnectionConfig) {
     const result = tauriCommands.saveConnection(config);
     return unwrap(result);
@@ -139,6 +145,8 @@ export function useCommands(): { commands: CommandMap } {
     uploadObjects,
     createFolder,
     moveObjects,
+    getObjectUrl,
+
     saveConnection,
     loadSavedConnections,
     deleteSavedConnection,

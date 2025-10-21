@@ -425,3 +425,21 @@ pub async fn move_objects(
         .await
         .map_err(|e| format!("Failed to move objects: {}", e))
 }
+
+#[derive(Serialize, Deserialize, Type)]
+pub struct GetObjectUrlOptions {
+    common: CommonOperationOptions,
+    bucket_name: String,
+    key: String,
+}
+
+#[tauri::command]
+#[specta::specta]
+pub async fn get_object_url(
+    opts: GetObjectUrlOptions,
+    state: State<'_, ConnectionMap>,
+) -> Result<String, String> {
+    let service = create_s3_service(&opts.common, state).await?;
+
+    Ok(service.get_object_url(&opts.bucket_name, &opts.key, opts.common.bucket_region))
+}

@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { copyObjectUrl } from "@/lib/actions";
 import { useCommands } from "@/lib/use-commands";
 import { formatFileSize, relativeTimeSince } from "@/lib/utils";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -352,6 +353,27 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
     },
   });
 
+  const { mutate: getObjectUrl } = useMutation({
+    mutationFn: async (key: string) => {
+      const url = await commands.getObjectUrl({
+        common: {
+          connection,
+          bucket_region: bucket.region,
+        },
+        bucket_name: bucket.name,
+        key,
+      });
+      copyObjectUrl(url);
+    },
+    onSuccess: () => {
+      toast.success("URL copied to clipboard!");
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("Failed to get object URL.");
+    },
+  });
+
   if (isPending) {
     return <FileTreeSkeleton />;
   }
@@ -462,6 +484,16 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
                             }}
                           >
                             Download
+                          </DropdownMenuItem>
+
+                          <DropdownMenuItem
+                            onClick={(e) => {
+                              e.stopPropagation();
+
+                              getObjectUrl(item.key);
+                            }}
+                          >
+                            Copy URL
                           </DropdownMenuItem>
 
                           <DropdownMenuItem

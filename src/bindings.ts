@@ -93,6 +93,14 @@ async moveObjects(opts: MoveObjectsOptions) : Promise<Result<null, string>> {
     else return { status: "error", error: e  as any };
 }
 },
+async getObjectUrl(opts: GetObjectUrlOptions) : Promise<Result<string, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_object_url", { opts }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async saveConnection(config: ConnectionConfig) : Promise<Result<string, string>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("save_connection", { config }) };
@@ -158,6 +166,7 @@ export type DeleteObjectsOptions = { common: CommonOperationOptions; bucket_name
 export type DownloadFolderOptions = { common: CommonOperationOptions; bucket_name: string; prefix: string }
 export type DownloadObjectOptions = { common: CommonOperationOptions; bucket_name: string; key: string }
 export type DownloadObjectsOptions = { common: CommonOperationOptions; bucket_name: string; keys: string[] }
+export type GetObjectUrlOptions = { common: CommonOperationOptions; bucket_name: string; key: string }
 export type ListObjectsOptions = { common: CommonOperationOptions; bucket_name: string; prefix: string | null }
 export type MoveObjectsOptions = { common: CommonOperationOptions; bucket_name: string; keys: string[]; destination_prefix: string }
 export type ObjectInfo = { key: string; size: number | null; last_modified: string | null; storage_class: string | null; is_folder: boolean }
