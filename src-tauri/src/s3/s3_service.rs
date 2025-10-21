@@ -87,15 +87,12 @@ impl S3Service {
     }
 
     pub fn get_object_url(&self, bucket_name: &str, object_key: &str, region: Option<String>) -> String {
-        let endpoint_url = match self.provider {
-            BucketProvider::S3 => {
-                format!(
-                    "https://s3.{}.amazonaws.com",
-                    region.unwrap_or("us-east-1".to_string())
-                )
-            }
-            _ => self.endpoint_url.clone(),
+        let bucket_endpoint_opts = GetBucketEndpointOptions {
+            name: bucket_name.to_string(),
+            region,
         };
+        
+        let bucket_url = self.get_bucket_endpoint(bucket_endpoint_opts);
 
         // URL encode the object key to handle special characters, spaces, etc.
         let encoded_key = object_key
@@ -106,7 +103,7 @@ impl S3Service {
             })
             .collect::<String>();
 
-        format!("{}/{}/{}", endpoint_url, bucket_name, encoded_key)
+        format!("{}/{}", bucket_url, encoded_key)
     }
 
     pub async fn list_buckets(&self) -> Result<Vec<BucketInfo>, Error> {

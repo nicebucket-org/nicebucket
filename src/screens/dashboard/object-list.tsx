@@ -353,7 +353,7 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
     },
   });
 
-  const { mutate: getObjectUrl } = useMutation({
+  const { mutateAsync: getObjectUrl } = useMutation({
     mutationFn: async (key: string) => {
       const url = await commands.getObjectUrl({
         common: {
@@ -363,10 +363,7 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
         bucket_name: bucket.name,
         key,
       });
-      copyObjectUrl(url);
-    },
-    onSuccess: () => {
-      toast.success("URL copied to clipboard!");
+      return url;
     },
     onError: (error) => {
       console.error(error);
@@ -452,10 +449,17 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
                       {item.type === "folder" && (
                         <>
                           <DropdownMenuItem
-                            onClick={(e) => {
+                            onClick={async (e) => {
                               e.stopPropagation();
 
-                              downloadFolder(item.key);
+                              try {
+                                const url = await getObjectUrl(item.key);
+                                copyObjectUrl(url);
+                                toast.success("URL copied to clipboard!");
+                              } catch (error) {
+                                console.error(error);
+                                toast.error("Failed to get object URL.");
+                              }
                             }}
                           >
                             Download
@@ -480,20 +484,56 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
                             onClick={(e) => {
                               e.stopPropagation();
 
-                              downloadObjects([item.key]);
+                              // Start clipboard write immediately in user gesture context
+                              const clipboardPromise =
+                                navigator.clipboard.writeText("");
+
+                              // Get URL and update clipboard
+                              getObjectUrl(item.key)
+                                .then(async (url) => {
+                                  try {
+                                    await navigator.clipboard.writeText(url);
+                                    toast.success("URL copied to clipboard!");
+                                  } catch (clipboardError) {
+                                    // Fallback method
+                                    const textArea =
+                                      document.createElement("textarea");
+                                    textArea.value = url;
+                                    textArea.style.position = "fixed";
+                                    textArea.style.left = "-999999px";
+                                    textArea.style.top = "-999999px";
+                                    document.body.appendChild(textArea);
+                                    textArea.focus();
+                                    textArea.select();
+                                    try {
+                                      document.execCommand("copy");
+                                      toast.success("URL copied to clipboard!");
+                                    } catch (fallbackError) {
+                                      toast.error(
+                                        "Failed to copy URL to clipboard.",
+                                      );
+                                    } finally {
+                                      document.body.removeChild(textArea);
+                                    }
+                                  }
+                                })
+                                .catch((error) => {
+                                  console.error(error);
+                                  toast.error("Failed to get object URL.");
+                                });
                             }}
                           >
-                            Download
+                            Copy URL
                           </DropdownMenuItem>
 
                           <DropdownMenuItem
                             onClick={(e) => {
                               e.stopPropagation();
 
-                              getObjectUrl(item.key);
+                              downloadObjects([item.key]);
                             }}
                           >
-                            Copy URL
+                            Download
                           </DropdownMenuItem>
 
                           <DropdownMenuItem

@@ -86,9 +86,7 @@ export function BucketList() {
                     <DropdownMenuItem
                       onClick={(e) => {
                         e.stopPropagation();
-
                         copyBucketUrl(bucket);
-
                         toast.success("Bucket URL copied successfully.");
                       }}
                     >
