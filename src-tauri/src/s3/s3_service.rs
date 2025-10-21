@@ -86,12 +86,17 @@ impl S3Service {
         format!("{}/{}", endpoint_url, opts.name)
     }
 
-    pub fn get_object_url(&self, bucket_name: &str, object_key: &str, region: Option<String>) -> String {
+    pub fn get_object_url(
+        &self,
+        bucket_name: &str,
+        object_key: &str,
+        region: Option<String>,
+    ) -> String {
         let bucket_endpoint_opts = GetBucketEndpointOptions {
             name: bucket_name.to_string(),
             region,
         };
-        
+
         let bucket_url = self.get_bucket_endpoint(bucket_endpoint_opts);
 
         // URL encode the object key to handle special characters, spaces, etc.
@@ -387,7 +392,9 @@ impl S3Service {
         prefix: &str,
         region: Option<String>,
     ) -> Result<Vec<u8>, Box<dyn std::error::Error + Send + Sync>> {
-        let objects = self.list_objects(bucket_name, Some(prefix), true, region).await?;
+        let objects = self
+            .list_objects(bucket_name, Some(prefix), true, region)
+            .await?;
 
         let file_keys: Vec<String> = objects
             .into_iter()
