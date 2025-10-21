@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.6 (2025-10-21)
+
+
+### Features
+
+* copy file URL ([#19](https://github.com/nicebucket-org/nicebucket/issues/19)) ([9260c33](https://github.com/nicebucket-org/nicebucket/commit/9260c33b330c7ef62d14888823df2edd51028a07))
+
 ### 0.0.5 (2025-10-20)
 
 ### Bug Fixes
