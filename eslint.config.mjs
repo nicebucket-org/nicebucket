@@ -1,7 +1,8 @@
 import reactPlugin from "eslint-plugin-react";
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-export default tseslint.config(
+export default defineConfig(
   {
     ignores: [
       "src/bindings.ts",
