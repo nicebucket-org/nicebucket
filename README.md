@@ -1,10 +1,10 @@
 <div align="center">
   <img src="./assets/logo.jpg" alt="Logo of nicebucket" width="33%">
+
+  <h1>nicebucket</h1>
+
+  <div>A fast, private, open-source S3 GUI built with Tauri.</div>
 </div>
-
-# nicebucket
-
-An S3 GUI that doesn't suck. A simple, fast S3 bucket manager built with Tauri.
 
 ## Why we built nicebucket
 
