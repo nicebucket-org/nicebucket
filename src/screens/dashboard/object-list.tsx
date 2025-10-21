@@ -464,7 +464,7 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
                               toast.success("URL copied to clipboard");
                             }}
                           >
-                            Copy URL
+                            Copy Object Url
                           </DropdownMenuItem>
 
                           <DropdownMenuItem
