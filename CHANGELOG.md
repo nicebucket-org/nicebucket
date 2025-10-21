@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.9 (2025-10-21)
+
+
+### Bug Fixes
+
+* eslint config ([#35](https://github.com/nicebucket-org/nicebucket/issues/35)) ([9dc5c01](https://github.com/nicebucket-org/nicebucket/commit/9dc5c015072c38b454c788a957fafc41666f3279))
+
 ### 0.0.8 (2025-10-21)
 
 ### 0.0.7 (2025-10-21)
