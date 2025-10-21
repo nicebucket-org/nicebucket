@@ -452,17 +452,10 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
                       {item.type === "folder" && (
                         <>
                           <DropdownMenuItem
-                            onClick={async (e) => {
+                            onClick={(e) => {
                               e.stopPropagation();
 
-                              try {
-                                const url = await copyObjectUrl(item.key);
-                                copyObjectUrl(url);
-                                toast.success("URL copied to clipboard!");
-                              } catch (error) {
-                                console.error(error);
-                                toast.error("Failed to get object URL.");
-                              }
+                              downloadFolder(item.key);
                             }}
                           >
                             Download
