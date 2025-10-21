@@ -113,6 +113,13 @@ jobs:
           ref: v${{ needs.create-version-tag.outputs.version }}
           fetch-depth: 0
 
+      - name: Verify version files
+        run: |
+          echo "Expected version: ${{ needs.create-version-tag.outputs.version }}"
+          echo "package.json version: $(node -p "require('./package.json').version")"
+          echo "tauri.conf.json version: $(node -p "require('./src-tauri/tauri.conf.json').version")"
+          echo "Cargo.toml version: $(grep '^version =' src-tauri/Cargo.toml | head -1)"
+
       - name: Setup node
         uses: actions/setup-node@v4
         with:
@@ -186,4 +193,5 @@ jobs:
           releaseBody: "See the assets to download this version and install."
           releaseDraft: false
           prerelease: false
+          appVersion: ${{ env.APP_VERSION }}
           args: ${{ matrix.args }}
