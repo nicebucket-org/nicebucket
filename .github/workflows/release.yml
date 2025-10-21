@@ -86,7 +86,8 @@ jobs:
 
           # Pull any changes that might have been pushed during release creation
           git pull --rebase origin main
-          git push --follow-tags origin HEAD
+          git push origin HEAD
+          git push origin v$NEW_VERSION
 
   publish-tauri:
     needs: create-version-tag
