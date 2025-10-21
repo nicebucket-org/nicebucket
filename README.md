@@ -1,12 +1,11 @@
 <div align="center">
   <img src="./assets/logo.jpg" alt="Logo of nicebucket" width="33%">
-
-  <h1>nicebucket</h1>
-
   <div>A fast, private, open-source S3 GUI built with Tauri.</div>
 </div>
 
-## Why we built nicebucket
+<br />
+
+# nicebucket
 
 We got tired of using the AWS console and CLI to manage files in S3.
 Sometimes you want a simple file browser that just works. So we built one.
