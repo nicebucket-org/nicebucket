@@ -1,6 +1,6 @@
-<p align="center">
+<div align="center">
   <img src="./assets/logo.jpg" alt="Logo of nicebucket" width="33%">
-  <p>A fast, private, open-source S3 GUI built with Tauri.</p>
+  <p align="center">A fast, private, open-source S3 GUI built with Tauri.</p>
 </div>
 
 <br />
