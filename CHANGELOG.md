@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/nicebucket-org/nicebucket/compare/v0.0.5...v0.0.10) (2025-10-21)
+
+
+### Features
+
+* copy file URL ([#19](https://github.com/nicebucket-org/nicebucket/issues/19)) ([9260c33](https://github.com/nicebucket-org/nicebucket/commit/9260c33b330c7ef62d14888823df2edd51028a07))
+
+
+### Bug Fixes
+
+* eslint config ([#35](https://github.com/nicebucket-org/nicebucket/issues/35)) ([9dc5c01](https://github.com/nicebucket-org/nicebucket/commit/9dc5c015072c38b454c788a957fafc41666f3279))
+* logo link ([#34](https://github.com/nicebucket-org/nicebucket/issues/34)) ([88fbe81](https://github.com/nicebucket-org/nicebucket/commit/88fbe8199824fb6b136213ffc77044343a2501ec))
+* wrong version for release binaries ([#20](https://github.com/nicebucket-org/nicebucket/issues/20)) ([4acc7e1](https://github.com/nicebucket-org/nicebucket/commit/4acc7e15d2e82398a2067b4323061b5daef3f79a))
+
 ### 0.0.9 (2025-10-21)
 
 
