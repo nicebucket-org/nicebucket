@@ -11,6 +11,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [0.0.11](https://github.com/nicebucket-org/nicebucket/compare/v0.0.10...v0.0.11) (2025-10-21)
 
+
+### CI/CD
+
+* fix release workflow tag versioning issue ([14e4d65](https://github.com/nicebucket-org/nicebucket/commit/14e4d65))
+* fix updating tauri.conf.json and cargo.toml versions ([7c0b5f4](https://github.com/nicebucket-org/nicebucket/commit/7c0b5f4))
+
 ### [0.0.10](https://github.com/nicebucket-org/nicebucket/compare/v0.0.9...v0.0.10) (2025-10-21)
 
 
@@ -69,16 +75,19 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * copy file URL ([#19](https://github.com/nicebucket-org/nicebucket/issues/19)) ([9260c33](https://github.com/nicebucket-org/nicebucket/commit/9260c33b330c7ef62d14888823df2edd51028a07))
+* copy object URL ([4e6461f](https://github.com/nicebucket-org/nicebucket/commit/4e6461f))
 
 
 ### Bug Fixes
 
 * wrong version for release binaries ([#20](https://github.com/nicebucket-org/nicebucket/issues/20)) ([4acc7e1](https://github.com/nicebucket-org/nicebucket/commit/4acc7e15d2e82398a2067b4323061b5daef3f79a))
+* wrong version for release binaries ([04b55ce](https://github.com/nicebucket-org/nicebucket/commit/04b55ce))
 
 
 ### Documentation
 
 * adapt README ([#18](https://github.com/nicebucket-org/nicebucket/issues/18)) ([f4558b1](https://github.com/nicebucket-org/nicebucket/commit/f4558b1e8a2c5f9b3d7e1a4c6f8b2e5c9a1d4f7))
+* adapt README ([7ff89fc](https://github.com/nicebucket-org/nicebucket/commit/7ff89fc))
 * add command for removing from quarantine to README ([#17](https://github.com/nicebucket-org/nicebucket/issues/17)) ([a62507d](https://github.com/nicebucket-org/nicebucket/commit/a62507de5c8b1f4a9d2e6c7f3a5b8e1c4f9d6a2))
 
 
