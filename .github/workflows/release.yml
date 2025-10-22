@@ -74,7 +74,7 @@ jobs:
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
           # Update tauri.conf.json version (looking for "version" field near top of file)
-          sed -i '0,/^  "version":/{s/^  "version": ".*"/  "version": "'$NEW_VERSION'",/;}' src-tauri/tauri.conf.json
+          sed -i '0,/^  "version":/{s/^  "version": ".*"/  "version": "'$NEW_VERSION'"/;}' src-tauri/tauri.conf.json
 
           # Update Cargo.toml version (only in the [package] section)
           sed -i '/^\[package\]$/,/^\[.*\]$/{s/^version = ".*"/version = "'$NEW_VERSION'"/;}' src-tauri/Cargo.toml
