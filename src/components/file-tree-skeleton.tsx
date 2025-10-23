@@ -14,7 +14,7 @@ export function FileTreeSkeleton(props: FileTreeSkeletonProps) {
       {new Array(numberOfRows).fill(null).map((_, i) => {
         return (
           <li key={i}>
-            <div className="flex h-12 w-full cursor-pointer items-center border-b border-neutral-300 px-6 py-0">
+            <div className="border-muted flex h-12 w-full cursor-pointer items-center border-b px-6 py-0">
               <Skeleton className="h-5 w-full" />
             </div>
           </li>
