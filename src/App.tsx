@@ -11,6 +11,7 @@ export function App() {
       <DashboardProvider>
         <Dashboard />
       </DashboardProvider>
+
       <div className="absolute bottom-4 left-4">
         <ThemeToggle />
       </div>

@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useTheme } from "@/lib/theme-context";
+import { useTheme } from "@/lib/use-theme";
 
 const themeOptions = [
   { value: "light" as const, label: "Light", icon: SunIcon },
@@ -19,7 +19,7 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   const currentTheme = themeOptions.find((option) => option.value === theme);
-  const CurrentIcon = currentTheme?.icon || SunIcon;
+  const CurrentIcon = currentTheme?.icon ?? SunIcon;
 
   return (
     <DropdownMenu>

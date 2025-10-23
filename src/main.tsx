@@ -8,7 +8,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "sonner";
 import { App } from "./App";
-import { ThemeProvider } from "./lib/theme-context";
+import { ThemeProvider } from "./lib/use-theme";
 
 function onError(e: unknown) {
   console.error("Unexpected error: ", e);

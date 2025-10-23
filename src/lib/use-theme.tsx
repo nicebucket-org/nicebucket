@@ -33,7 +33,7 @@ function getCurrentTheme(): Theme {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(getCurrentTheme);
+  const [theme, setThemeState] = useState<Theme>(getCurrentTheme());
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
