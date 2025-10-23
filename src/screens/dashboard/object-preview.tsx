@@ -102,7 +102,7 @@ export function ObjectPreview({ bucket, object }: ObjectPreviewProps) {
 
   if (isPending) {
     return (
-      <div className="rounded-lg border-l border-neutral-300 p-4">
+      <div className="border-muted rounded-lg border-l p-4">
         <Skeleton className="size-56 p-4" />
       </div>
     );
@@ -113,7 +113,7 @@ export function ObjectPreview({ bucket, object }: ObjectPreviewProps) {
     : null;
 
   return (
-    <div className="flex w-64 shrink-0 flex-col gap-6 rounded-lg border-l border-neutral-300 p-4">
+    <div className="border-muted flex w-64 shrink-0 flex-col gap-6 rounded-lg border-l p-4">
       <div>
         <div className="text-muted-foreground">Key</div>
         <div className="truncate">{object.key}</div>

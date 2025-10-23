@@ -502,7 +502,7 @@ export function ObjectList({ connection, bucket }: BucketViewProps) {
         <ObjectPreview bucket={bucket} object={previewedObject} />
       )}
 
-      <div className="absolute bottom-4 left-4 flex rounded-md border border-neutral-300">
+      <div className="border-muted absolute bottom-4 left-4 flex rounded-md border">
         {hasActiveSelection ? (
           <>
             <span className="flex items-center px-4 select-none hover:bg-transparent">
