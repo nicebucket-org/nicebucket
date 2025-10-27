@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.13](https://github.com/nicebucket-org/nicebucket/compare/v0.0.12...v0.0.13) (2025-10-27)
+
+
+### Features
+
+* add dark mode ([#40](https://github.com/nicebucket-org/nicebucket/issues/40)) ([891875b](https://github.com/nicebucket-org/nicebucket/commit/891875bfdd5934b076cfcf1881e9ef810295701e))
+
 ### [0.0.12](https://github.com/nicebucket-org/nicebucket/compare/v0.0.11...v0.0.12) (2025-10-22)
 
 
