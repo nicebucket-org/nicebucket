@@ -1,3 +1,4 @@
+import { ThemeToggle } from "./components/theme-toggle";
 import { Dashboard } from "./screens/dashboard/dashboard";
 import { DashboardProvider } from "./screens/dashboard/use-dashboard-context";
 
@@ -10,6 +11,10 @@ export function App() {
       <DashboardProvider>
         <Dashboard />
       </DashboardProvider>
+
+      <div className="absolute bottom-4 left-4">
+        <ThemeToggle />
+      </div>
     </main>
   );
 }

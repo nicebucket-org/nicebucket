@@ -10,7 +10,7 @@ export function Card({
     <div
       {...other}
       className={cn(
-        "flex flex-col rounded-lg border border-neutral-300 p-6 shadow",
+        "border-muted flex flex-col rounded-lg border p-6 shadow",
         className,
       )}
     >

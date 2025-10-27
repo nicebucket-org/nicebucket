@@ -243,32 +243,34 @@ export function CredentialsForm({ className }: CredentialsFormProps) {
           <div className="truncate">{connection.provider}</div>
         </div>
 
-        {connectionConfig && !isConnectionConfigDuplicate && (
+        <div className="grid gap-2">
+          {connectionConfig && !isConnectionConfigDuplicate && (
+            <Button
+              onClick={() => {
+                saveConnection(connectionConfig);
+              }}
+              variant="outline"
+            >
+              Save Connection
+            </Button>
+          )}
+
+          {connectionConfig && isConnectionConfigDuplicate && (
+            <div className="border-muted bg-muted/50 text-muted-foreground flex items-center justify-center gap-2 rounded-md border px-3 py-2 text-sm">
+              Saved Connection
+            </div>
+          )}
+
           <Button
             onClick={() => {
-              saveConnection(connectionConfig);
+              setConnection(null);
+              setConnectionConfig(null);
+              reset();
             }}
-            variant="outline"
           >
-            Save Connection
+            Disconnect
           </Button>
-        )}
-
-        {connectionConfig && isConnectionConfigDuplicate && (
-          <div className="border-muted bg-muted/50 text-muted-foreground flex items-center gap-2 rounded-md border px-3 py-2 text-sm">
-            Saved Connection
-          </div>
-        )}
-
-        <Button
-          onClick={() => {
-            setConnection(null);
-            setConnectionConfig(null);
-            reset();
-          }}
-        >
-          Disconnect
-        </Button>
+        </div>
       </div>
     );
   }

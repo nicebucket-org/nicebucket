@@ -70,7 +70,7 @@ export function FileTree<T extends FileTreeRow>({
         {onParentDirectoryClick && (
           <li key={".."}>
             <Button
-              className="h-12 w-full cursor-pointer items-center border-b border-neutral-300 px-6 py-0"
+              className="border-muted h-12 w-full cursor-pointer items-center border-b px-6 py-0"
               variant="ghost"
               onClick={() => {
                 onParentDirectoryClick();
@@ -88,7 +88,7 @@ export function FileTree<T extends FileTreeRow>({
             <li key={item.key}>
               <Button
                 variant="ghost"
-                className="flex h-12 w-full cursor-pointer items-center justify-start gap-6 border-b border-neutral-300 px-6 py-0"
+                className="border-muted flex h-12 w-full cursor-pointer items-center justify-start gap-6 border-b px-6 py-0"
                 onClick={() => {
                   item.onClick();
                 }}
