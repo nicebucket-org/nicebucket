@@ -3,6 +3,17 @@ name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      release_type:
+        description: "Release type"
+        required: false
+        default: "auto"
+        type: choice
+        options:
+          - "auto"
+          - "patch"
+          - "minor"
+          - "major"
 
 jobs:
   create-version-tag:
@@ -67,7 +78,15 @@ jobs:
           git config --global user.email "2131833+nicebucket-release-bot[bot]@users.noreply.github.com"
 
           echo "Creating version tag from main branch..."
-          npx standard-version
+
+          RELEASE_TYPE="${{ github.event.inputs.release_type }}"
+          if [ "$RELEASE_TYPE" = "auto" ] || [ -z "$RELEASE_TYPE" ]; then
+            echo "Using automatic version detection..."
+            npx standard-version
+          else
+            echo "Using specified release type: $RELEASE_TYPE"
+            npx standard-version --release-as $RELEASE_TYPE
+          fi
 
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "New version: $NEW_VERSION"
