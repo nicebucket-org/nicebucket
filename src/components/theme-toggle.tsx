@@ -24,7 +24,11 @@ export function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="size-9">
+        <Button
+          variant="outline"
+          size="icon"
+          className="flex items-center justify-center rounded-sm p-2"
+        >
           <CurrentIcon className="size-4" />
           <span className="sr-only">Toggle theme</span>
         </Button>
