@@ -25,7 +25,7 @@ export function ThemeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
           className="flex items-center justify-center rounded-sm p-2"
         >
