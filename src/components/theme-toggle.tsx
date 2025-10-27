@@ -30,16 +30,17 @@ export function ThemeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" side="top">
-        {themeOptions.map((option) => {
-          const Icon = option.icon;
+        {themeOptions.map(({ icon: Icon, value, label }) => {
           return (
             <DropdownMenuItem
-              key={option.value}
-              onClick={() => setTheme(option.value)}
+              key={value}
+              onClick={() => {
+                setTheme(value);
+              }}
               className="gap-2"
             >
               <Icon className="size-4" />
-              {option.label}
+              {label}
             </DropdownMenuItem>
           );
         })}
