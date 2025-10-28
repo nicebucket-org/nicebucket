@@ -67,7 +67,7 @@ Want to contribute or run nicebucket locally? Here's what you need:
 Setup is quite simple: clone the repository, install dependencies and run the app:
 
 ```bash
-git clone https://github.com/your-username/nicebucket.git
+git clone https://github.com/nicebucket-org/nicebucket.git
 cd nicebucket
 npm install
 npm run dev
