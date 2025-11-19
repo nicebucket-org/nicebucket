@@ -11,13 +11,6 @@ updates:
         update-types:
           - "minor"
           - "patch"
-      tauri-major:
-        patterns:
-          - "tauri"
-          - "tauri-build"
-          - "tauri-plugin-*"
-        update-types:
-          - "major"
 
   - package-ecosystem: "npm"
     directory: "/"
