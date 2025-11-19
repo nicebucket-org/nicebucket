@@ -5,20 +5,40 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      tauri-dependencies:
+      cargo-non-major:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      tauri-major:
         patterns:
           - "tauri"
           - "tauri-build"
           - "tauri-plugin-*"
-          - "serde"
-          - "serde_json"
+        update-types:
+          - "major"
 
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      npm-non-major:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      actions-non-major:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
