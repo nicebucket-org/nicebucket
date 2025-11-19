@@ -38,7 +38,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: lts/*
 
@@ -145,7 +145,7 @@ jobs:
           echo "Cargo.toml version: $(grep '^version =' src-tauri/Cargo.toml | head -1)"
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: lts/*
 
