@@ -214,7 +214,7 @@ jobs:
         with:
           tagName: v${{ env.APP_VERSION }}
           releaseName: "v${{ env.APP_VERSION }}"
-          releaseBody: "See the assets to download this version and install."
+          releaseBody: "See the assets to download this version and install.\n\n**macOS users:** After downloading, you may need to remove the app from quarantine by running: `xattr -cr /Applications/nicebucket.app`"
           releaseDraft: false
           prerelease: false
           appVersion: ${{ env.APP_VERSION }}
