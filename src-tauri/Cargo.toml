@@ -33,4 +33,4 @@ tokio = { version = "1.48", features = ["full"] }
 uuid = { version = "1.18.1", features = ["v4", "serde"] }
 tauri-plugin-fs = "2"
 tauri-plugin-dialog = "2"
-zip = "5.1.1"
+zip = "6.0.0"
