@@ -56,7 +56,13 @@ jobs:
 
       - name: Install Tauri dependencies (Ubuntu)
         run: |
-          sudo apt-get update && sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libglib2.0-dev
+          sudo apt-get update && sudo apt-get install -y libappindicator3-dev librsvg2-dev patchelf libglib2.0-dev \
+            libwebkit2gtk-4.1-dev=2.44.0-2 \
+            libwebkit2gtk-4.1-0=2.44.0-2 \
+            libjavascriptcoregtk-4.1-0=2.44.0-2 \
+            libjavascriptcoregtk-4.1-dev=2.44.0-2 \
+            gir1.2-javascriptcoregtk-4.1=2.44.0-2 \
+            gir1.2-webkit2-4.1=2.44.0-2
 
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -125,13 +131,21 @@ jobs:
         include:
           - platform: "macos-latest"
             args: "--target aarch64-apple-darwin"
-          - platform: "ubuntu-22.04"
+          - platform: "ubuntu-24.04"
             args: ""
           - platform: "windows-latest"
             args: ""
 
     runs-on: ${{ matrix.platform }}
     steps:
+      - name: Generate GitHub App Token
+        id: get_token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.RELEASE_BOT_APP_ID }}
+          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
       - uses: actions/checkout@v5
         with:
           ref: v${{ needs.create-version-tag.outputs.version }}
@@ -153,10 +167,16 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+        if: matrix.platform == 'ubuntu-24.04' # This must match the platform value defined above.
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+          sudo apt-get install -y libappindicator3-dev librsvg2-dev patchelf libglib2.0-dev \
+            libwebkit2gtk-4.1-dev=2.44.0-2 \
+            libwebkit2gtk-4.1-0=2.44.0-2 \
+            libjavascriptcoregtk-4.1-0=2.44.0-2 \
+            libjavascriptcoregtk-4.1-dev=2.44.0-2 \
+            gir1.2-javascriptcoregtk-4.1=2.44.0-2 \
+            gir1.2-webkit2-4.1=2.44.0-2
 
       - name: Clean and install frontend dependencies (Windows)
         if: matrix.platform == 'windows-latest'
@@ -203,7 +223,7 @@ jobs:
         timeout-minutes: 360
         # TODO: Code signing environment variables temporarily disabled
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.get_token.outputs.token }}
           # APPLE_ID: ${{ secrets.APPLE_ID }}
           # APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           # APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
