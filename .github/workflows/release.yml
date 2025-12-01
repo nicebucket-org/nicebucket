@@ -32,7 +32,7 @@ jobs:
           owner: ${{ github.repository_owner }}
 
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           token: ${{ steps.get_token.outputs.token }}
           fetch-depth: 0
@@ -132,7 +132,7 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           ref: v${{ needs.create-version-tag.outputs.version }}
           fetch-depth: 0
