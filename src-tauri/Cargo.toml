@@ -30,7 +30,7 @@ specta-typescript = "0.0.9"
 aws-config = { version = "1.0", features = ["behavior-version-latest"] }
 aws-sdk-s3 = { version = "1.0", features = ["behavior-version-latest"] }
 tokio = { version = "1.48", features = ["full"] }
-uuid = { version = "1.18.1", features = ["v4", "serde"] }
+uuid = { version = "1.19.0", features = ["v4", "serde"] }
 tauri-plugin-fs = "2"
 tauri-plugin-dialog = "2"
 zip = "6.0.0"
