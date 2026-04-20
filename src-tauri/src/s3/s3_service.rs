@@ -9,8 +9,10 @@ use serde::{Deserialize, Serialize};
 use specta::Type;
 use std::io::{Cursor, Write};
 use std::path::PathBuf;
+use std::sync::Arc;
 use tokio::fs::File;
 use tokio::io::AsyncReadExt;
+use tokio::sync::Semaphore;
 use tokio::task::JoinHandle;
 use zip::write::ZipWriter;
 use zip::CompressionMethod;
@@ -235,13 +237,16 @@ impl S3Service {
     ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         let mut handles: Vec<JoinHandle<Result<(), Box<dyn std::error::Error + Send + Sync>>>> =
             Vec::new();
+        let semaphore = Arc::new(Semaphore::new(50));
 
         for path in file_paths {
             let bucket_name_clone = bucket_name.to_string();
             let prefix_clone = prefix.clone();
             let client_clone = self.client.clone();
+            let permit = semaphore.clone().acquire_owned().await.unwrap();
 
             let handle = tokio::spawn(async move {
+                let _permit = permit;
                 let file_name = path
                     .file_name()
                     .and_then(|name| name.to_str())
@@ -305,13 +310,16 @@ impl S3Service {
     ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         let mut handles: Vec<JoinHandle<Result<(), Box<dyn std::error::Error + Send + Sync>>>> =
             Vec::new();
+        let semaphore = Arc::new(Semaphore::new(50));
 
         for key in keys {
             let client_clone = self.client.clone();
             let bucket_name_clone = bucket_name.to_string();
             let key_clone = key.clone();
+            let permit = semaphore.clone().acquire_owned().await.unwrap();
 
             let handle = tokio::spawn(async move {
+                let _permit = permit;
                 client_clone
                     .delete_object()
                     .bucket(&bucket_name_clone)
@@ -360,12 +368,15 @@ impl S3Service {
         keys: Vec<String>,
     ) -> Result<Vec<(String, Vec<u8>)>, Box<dyn std::error::Error + Send + Sync>> {
         let mut handles: Vec<DownloadTaskHandle> = Vec::new();
+        let semaphore = Arc::new(Semaphore::new(50));
 
         for key in keys {
             let s3_service_clone = self.clone();
             let bucket_name_clone = bucket_name.to_string();
+            let permit = semaphore.clone().acquire_owned().await.unwrap();
 
             let handle = tokio::spawn(async move {
+                let _permit = permit;
                 let data = s3_service_clone
                     .download_object(&bucket_name_clone, &key)
                     .await?;
@@ -541,13 +552,16 @@ impl S3Service {
     ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         let mut handles: Vec<JoinHandle<Result<(), Box<dyn std::error::Error + Send + Sync>>>> =
             Vec::new();
+        let semaphore = Arc::new(Semaphore::new(50));
 
         for key in keys {
             let client_clone = self.client.clone();
             let bucket_name_clone = bucket_name.to_string();
             let destination_prefix_clone = destination_prefix.to_string();
+            let permit = semaphore.clone().acquire_owned().await.unwrap();
 
             let handle = tokio::spawn(async move {
+                let _permit = permit;
                 let filename = key.rsplit('/').next().unwrap_or(&key);
 
                 let destination_key = if destination_prefix_clone.is_empty() {
