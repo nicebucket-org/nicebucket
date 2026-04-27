@@ -29,9 +29,9 @@ tauri-specta = { version = "2.0.0-rc.21", features = ["typescript"] }
 specta-typescript = "0.0.9"
 aws-config = { version = "1.0", features = ["behavior-version-latest"] }
 aws-sdk-s3 = { version = "1.0", features = ["behavior-version-latest"] }
-tokio = { version = "1.51", features = ["full"] }
-uuid = { version = "1.23.0", features = ["v4", "serde"] }
+tokio = { version = "1.52", features = ["full"] }
+uuid = { version = "1.23.1", features = ["v4", "serde"] }
 tauri-plugin-fs = "2"
 tauri-plugin-dialog = "2.7"
-zip = "8.5.1"
+zip = "8.6.0"
 infer = "0.19.0"
