@@ -12,12 +12,12 @@ updates:
           - "minor"
           - "patch"
 
-  - package-ecosystem: "npm"
+  - package-ecosystem: "bun"
     directory: "/"
     schedule:
       interval: "weekly"
     groups:
-      npm-non-major:
+      bun-non-major:
         patterns:
           - "*"
         update-types:
