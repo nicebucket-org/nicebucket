@@ -124,7 +124,7 @@ jobs:
         include:
           - platform: "macos-latest"
             args: "--target aarch64-apple-darwin"
-          - platform: "ubuntu-22.04"
+          - platform: "ubuntu-latest"
             args: ""
           - platform: "windows-latest"
             args: ""
