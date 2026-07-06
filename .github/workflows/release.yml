@@ -197,7 +197,7 @@ jobs:
           echo "CERT_ID=$CERT_ID" >> $GITHUB_ENV
           echo "Certificate imported."
 
-      - uses: tauri-apps/tauri-action@v0
+      - uses: tauri-apps/tauri-action@v1
         # The notarization for MacOS often takes very long, let's monitor this
         timeout-minutes: 360
         env:
