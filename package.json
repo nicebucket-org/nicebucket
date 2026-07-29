@@ -71,7 +71,7 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "standard-version": "^9.5.0",
     "tw-animate-css": "^1.3.7",
-    "typescript": "~6.0.3",
+    "typescript": "~7.0.2",
     "typescript-eslint": "^8.65.0",
     "vite": "^8.1.5",
     "wdio-wait-for": "^3.1.1",
