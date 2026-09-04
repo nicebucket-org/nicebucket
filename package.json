@@ -1,7 +1,7 @@
 {
   "name": "nicebucket",
   "private": true,
-  "version": "0.4.3",
+  "version": "0.4.4",
   "type": "module",
   "packageManager": "bun@1.2.20",
   "scripts": {
