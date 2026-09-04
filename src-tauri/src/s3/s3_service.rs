@@ -4,7 +4,7 @@ use super::{BucketInfo, ObjectInfo};
 use aws_config::Region;
 use aws_sdk_s3::primitives::ByteStream;
 use aws_sdk_s3::types::{Delete, ObjectIdentifier};
-use aws_sdk_s3::{Client, Error};
+use aws_sdk_s3::Client;
 use serde::{Deserialize, Serialize};
 use specta::Type;
 use std::io::{Cursor, Write};
@@ -17,8 +17,8 @@ use tokio::task::JoinHandle;
 use zip::write::ZipWriter;
 use zip::CompressionMethod;
 
-type DownloadTaskHandle =
-    JoinHandle<Result<(String, Vec<u8>), Box<dyn std::error::Error + Send + Sync>>>;
+type S3ServiceError = Box<dyn std::error::Error + Send + Sync>;
+type DownloadTaskHandle = JoinHandle<Result<(String, Vec<u8>), S3ServiceError>>;
 
 const DEFAULT_CONTENT_TYPE: &str = "application/octet-stream";
 
@@ -44,7 +44,7 @@ pub struct GetBucketEndpointOptions {
 }
 
 impl S3Service {
-    pub async fn new(service_config: S3ServiceConfig) -> Result<Self, Error> {
+    pub async fn new(service_config: S3ServiceConfig) -> Result<Self, S3ServiceError> {
         let region = Region::new(service_config.region);
 
         let aws_config = aws_config::ConfigLoader::default()
@@ -115,7 +115,7 @@ impl S3Service {
         format!("{}/{}", bucket_url, encoded_key)
     }
 
-    pub async fn list_buckets(&self) -> Result<Vec<BucketInfo>, Error> {
+    pub async fn list_buckets(&self) -> Result<Vec<BucketInfo>, S3ServiceError> {
         let mut all_buckets = Vec::new();
         let mut continuation_token: Option<String> = None;
 
@@ -168,7 +168,7 @@ impl S3Service {
         prefix: Option<&str>,
         recursive: bool,
         region: Option<String>,
-    ) -> Result<Vec<ObjectInfo>, Error> {
+    ) -> Result<Vec<ObjectInfo>, S3ServiceError> {
         let mut all_objects = Vec::new();
         let mut continuation_token: Option<String> = None;
 
@@ -234,9 +234,8 @@ impl S3Service {
         bucket_name: &str,
         prefix: Option<String>,
         file_paths: Vec<PathBuf>,
-    ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
-        let mut handles: Vec<JoinHandle<Result<(), Box<dyn std::error::Error + Send + Sync>>>> =
-            Vec::new();
+    ) -> Result<(), S3ServiceError> {
+        let mut handles: Vec<JoinHandle<Result<(), S3ServiceError>>> = Vec::new();
         let semaphore = Arc::new(Semaphore::new(50));
 
         for path in file_paths {
@@ -307,9 +306,8 @@ impl S3Service {
         &self,
         bucket_name: &str,
         keys: Vec<String>,
-    ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
-        let mut handles: Vec<JoinHandle<Result<(), Box<dyn std::error::Error + Send + Sync>>>> =
-            Vec::new();
+    ) -> Result<(), S3ServiceError> {
+        let mut handles: Vec<JoinHandle<Result<(), S3ServiceError>>> = Vec::new();
         let semaphore = Arc::new(Semaphore::new(50));
 
         for key in keys {
@@ -349,7 +347,7 @@ impl S3Service {
         &self,
         bucket_name: &str,
         key: &str,
-    ) -> Result<Vec<u8>, Box<dyn std::error::Error + Send + Sync>> {
+    ) -> Result<Vec<u8>, S3ServiceError> {
         let resp = self
             .client
             .get_object()
@@ -366,7 +364,7 @@ impl S3Service {
         &self,
         bucket_name: &str,
         keys: Vec<String>,
-    ) -> Result<Vec<(String, Vec<u8>)>, Box<dyn std::error::Error + Send + Sync>> {
+    ) -> Result<Vec<(String, Vec<u8>)>, S3ServiceError> {
         let mut handles: Vec<DownloadTaskHandle> = Vec::new();
         let semaphore = Arc::new(Semaphore::new(50));
 
@@ -409,7 +407,7 @@ impl S3Service {
         bucket_name: &str,
         prefix: &str,
         region: Option<String>,
-    ) -> Result<Vec<u8>, Box<dyn std::error::Error + Send + Sync>> {
+    ) -> Result<Vec<u8>, S3ServiceError> {
         let objects = self
             .list_objects(bucket_name, Some(prefix), true, region)
             .await?;
@@ -447,7 +445,11 @@ impl S3Service {
         Ok(buffer.into_inner())
     }
 
-    pub async fn create_folder(&self, bucket_name: &str, folder_key: &str) -> Result<(), Error> {
+    pub async fn create_folder(
+        &self,
+        bucket_name: &str,
+        folder_key: &str,
+    ) -> Result<(), S3ServiceError> {
         self.client
             .put_object()
             .bucket(bucket_name)
@@ -463,7 +465,7 @@ impl S3Service {
         bucket_name: &str,
         folder_prefix: &str,
         region: Option<String>,
-    ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+    ) -> Result<(), S3ServiceError> {
         // Safety check: prevent deletion of root or invalid paths
         if folder_prefix.is_empty() || folder_prefix == "/" {
             return Err("Cannot delete root folder".into());
@@ -549,9 +551,8 @@ impl S3Service {
         bucket_name: &str,
         keys: Vec<String>,
         destination_prefix: &str,
-    ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
-        let mut handles: Vec<JoinHandle<Result<(), Box<dyn std::error::Error + Send + Sync>>>> =
-            Vec::new();
+    ) -> Result<(), S3ServiceError> {
+        let mut handles: Vec<JoinHandle<Result<(), S3ServiceError>>> = Vec::new();
         let semaphore = Arc::new(Semaphore::new(50));
 
         for key in keys {
