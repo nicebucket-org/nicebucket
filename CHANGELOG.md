@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.5](https://github.com/nicebucket-org/nicebucket/compare/v0.4.4...v0.4.5) (2026-09-06)
+
 ### [0.4.4](https://github.com/nicebucket-org/nicebucket/compare/v0.4.3...v0.4.4) (2026-09-04)
 
 ### [0.4.3](https://github.com/nicebucket-org/nicebucket/compare/v0.4.2...v0.4.3) (2026-05-30)
