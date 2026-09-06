@@ -34,6 +34,14 @@ Easily move files between folders.
 
 Download from the [Releases](https://github.com/nicebucket-org/nicebucket/releases) section.
 
+#### macOS
+
+The macOS app is not signed or notarized. After copying it to Applications, remove it from quarantine before launching:
+
+```bash
+xattr -cr /Applications/nicebucket.app
+```
+
 #### Linux (Wayland)
 
 Some non-Debian Wayland distributions require preloading the Wayland client library to launch the AppImage. We also had scaling glitches without `GDK_SCALE=1`, so keep it in the command below (adjust the binary name if needed):
