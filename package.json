@@ -66,7 +66,7 @@
     "@wdio/spec-reporter": "^9.31.2",
     "@wdio/types": "^9.31.2",
     "eslint": "^10.10.0",
-    "expect-webdriverio": "^5.7.0",
+    "expect-webdriverio": "^6.0.10",
     "prettier": "3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "standard-version": "^9.5.0",
