@@ -82,11 +82,3 @@ jobs:
       - name: Cargo Clippy (Linter)
         working-directory: src-tauri
         run: cargo clippy --locked -- -D warnings
-
-      # TODO: investigate e2e issues, see https://github.com/matthiasweiss/s3-gui-demo/actions/runs/18214103174/job/51859898196?pr=2
-      # - name: Install tauri-driver
-      #   run: cargo install tauri-driver --locked
-
-      # - name: Run e2e tests
-      #   working-directory: scripts
-      #   run: bun run test:e2e

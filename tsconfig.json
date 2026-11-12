@@ -22,19 +22,8 @@
       "@/*": ["./src/*"]
     },
     "allowJs": true,
-    "types": [
-      "@wdio/globals/types",
-      "expect-webdriverio",
-      "@wdio/mocha-framework"
-    ]
+    "types": ["vite/client", "node"]
   },
-  "include": [
-    "src",
-    "tests",
-    "e2e",
-    "eslint.config.mjs",
-    "vite.config.ts",
-    "wdio.conf.js"
-  ],
+  "include": ["src", "tests", "eslint.config.mjs", "vite.config.ts"],
   "exclude": ["src/bindings.ts"]
 }
